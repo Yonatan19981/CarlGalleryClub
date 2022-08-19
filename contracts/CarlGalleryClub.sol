@@ -28,6 +28,7 @@ contract CarlGalleryClub is ERC721{
 
     mapping(uint256 => Project) projects;
 
+    address public supportAddress=0x7A3C7cabce56Dee0d3a166cd207ed094dE0C09DF;
     address payable public CGCAddress;
     uint256 public CGCPercentage = 10;
     uint id;
@@ -44,9 +45,9 @@ contract CarlGalleryClub is ERC721{
     }
 
 
-    constructor(string memory _tokenName, string memory _tokenSymbol) ERC721(_tokenName, _tokenSymbol)  {
+    constructor(address _fees) ERC721("CarlGalleryClub", "CGC")  {
         isAdmin[msg.sender]=true;
-        CGCAddress = payable(msg.sender);
+        CGCAddress = payable(_fees);
         id=0;
     }
 
@@ -67,8 +68,11 @@ contract CarlGalleryClub is ERC721{
         require(!projects[_projectId].paused , "Purchases are paused.");
 
         uint256 tokenId = _mintToken(_to, _projectId);
-
-        CGCAddress.transfer(price);
+        uint finalPrice=msg.value;
+        uint supportPrice=msg.value*5/1000;
+        finalPrice=finalPrice-supportPrice;
+        CGCAddress.transfer(supportPrice);
+        CGCAddress.transfer(finalPrice);
 
 
         return tokenId;

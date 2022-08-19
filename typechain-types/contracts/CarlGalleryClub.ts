@@ -53,6 +53,7 @@ export interface CarlGalleryClubInterface extends utils.Interface {
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
+    "supportAddress()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "toggleProjectIsPaused(uint256)": FunctionFragment;
@@ -94,6 +95,7 @@ export interface CarlGalleryClubInterface extends utils.Interface {
       | "safeTransferFrom(address,address,uint256)"
       | "safeTransferFrom(address,address,uint256,bytes)"
       | "setApprovalForAll"
+      | "supportAddress"
       | "supportsInterface"
       | "symbol"
       | "toggleProjectIsPaused"
@@ -217,6 +219,10 @@ export interface CarlGalleryClubInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
+    functionFragment: "supportAddress",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
   ): string;
@@ -331,6 +337,10 @@ export interface CarlGalleryClubInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setApprovalForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "supportAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -604,6 +614,8 @@ export interface CarlGalleryClub extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    supportAddress(overrides?: CallOverrides): Promise<[string]>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -810,6 +822,8 @@ export interface CarlGalleryClub extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  supportAddress(overrides?: CallOverrides): Promise<string>;
+
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -1015,6 +1029,8 @@ export interface CarlGalleryClub extends BaseContract {
       approved: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    supportAddress(overrides?: CallOverrides): Promise<string>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
@@ -1259,6 +1275,8 @@ export interface CarlGalleryClub extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    supportAddress(overrides?: CallOverrides): Promise<BigNumber>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -1453,6 +1471,8 @@ export interface CarlGalleryClub extends BaseContract {
       approved: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
+
+    supportAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
