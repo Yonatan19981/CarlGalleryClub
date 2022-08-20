@@ -1,21 +1,42 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-
-let mnemonic=""
-const config: HardhatUserConfig = {
+import { config } from 'dotenv'
+config()
+const mnemonic = process.env.MNEMONIC
+const infura_key = process.env.INFURA_KEY
+var private_key = process.env.PRIVATE_KEY
+if(!private_key){
+  private_key="asdsad"
+}
+const hhconfig: HardhatUserConfig = {
   networks: {
 	
 		hardhat: {
 			accounts:{
 			  accountsBalance:"100000000000000000000000000000000000000000000000000000000000",
 			},
-
 		},
-		mainnet: {
+		polygon: {
 			accounts: { mnemonic },
-			url: 'https://polygon-mainnet.infura.io/v3/',
-			chainId: 1,
+			url: 'https://polygon-mainnet.infura.io/v3/' + infura_key,
+			chainId: 137,
 			gas:"auto"
+		},
+		arbitrum: {
+			accounts: { mnemonic },
+			url: 'https://arbitrum-mainnet.infura.io/v3/' + infura_key,
+			chainId: 42161,
+		},
+		kovan: {
+			accounts: { mnemonic },
+			url: 'https://kovan.infura.io/v3/' + infura_key,
+			chainId: 42,
+			gas:"auto"
+		},
+		ropsten: {
+			accounts: [private_key],
+			url: 'https://ropsten.infura.io/v3/' + infura_key,
+			chainId: 3
 		},
 
 	},
@@ -49,4 +70,4 @@ const config: HardhatUserConfig = {
 	  }
 };
 
-export default config;
+export default hhconfig;

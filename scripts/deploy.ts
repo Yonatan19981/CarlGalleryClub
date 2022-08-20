@@ -1,9 +1,10 @@
 import { ethers } from "hardhat";
 
 async function main() {
-
+  const [wallet1] = await ethers.getSigners();
+	console.log(wallet1.address);
   const CarlGalleryClub = await ethers.getContractFactory("CarlGalleryClub");
-  const carlGalleryClub = await CarlGalleryClub.deploy();
+  const carlGalleryClub = await CarlGalleryClub.deploy("0x7A3C7cabce56Dee0d3a166cd207ed094dE0C09DF");
 
   await carlGalleryClub.deployed();
 
